@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 15px 0 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 0 2px;
+  background-color: #112d49;
+  width: 100%;
+  height: 115px;
+}
+
+.body {
+  padding-top: 0;
+}
