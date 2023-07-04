@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { v4 as uuidv4 } from 'uuid'
 import './App.css'
 import TodoForm from './components/Todos/TodoForm'
@@ -6,7 +7,7 @@ import TodoList from './components/Todos/TodoList'
 import TodosActions from './components/Todos/TodosActions'
 
 function storageTodo() {
-  const savedTodos = localStorage.getItem('todos')
+  const savedTodos = localStorage.getItem('todos3')
   if (savedTodos) {
     return JSON.parse(savedTodos)
   }
@@ -17,7 +18,7 @@ export default function App() {
   const [todos, setTodos] = useState(storageTodo())
   const downRef = useRef(null)
 
-  localStorage.setItem('todos', JSON.stringify(todos))
+  localStorage.setItem('todos3', JSON.stringify(todos))
 
   const addTodoHandler = (text) => {
     const newTodo = {
@@ -25,8 +26,7 @@ export default function App() {
       text: text,
       done: false,
     }
-
-    setTodos([...todos, newTodo])
+    flushSync(() => setTodos([...todos, newTodo]))
   }
 
   const deleteTodo = (id) => {
@@ -72,16 +72,16 @@ export default function App() {
           deleteTodo={deleteTodo}
           doneHendler={doneToggleHendler}
         />
-        {!!todos.length && (
-          <div ref={downRef}>
+        <div ref={downRef}>
+          {!!todos.length && (
             <TodosActions
               resetTodos={resetTodos}
               clearCompleted={clearCompleted}
               todos={todos}
               countDone={!!countDone} // convert to boolean
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )
