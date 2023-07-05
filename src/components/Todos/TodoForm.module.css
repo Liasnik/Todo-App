@@ -12,6 +12,7 @@
   width: 65%;
   height: 30px;
   font-size: 1.3rem;
+  margin: 0 7px;
 }
 
 .todoFormContainer input,

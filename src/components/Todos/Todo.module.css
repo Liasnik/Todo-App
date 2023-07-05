@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  margin: 15px 0;
+  margin: 15px 7px;
   font-size: 1.5rem;
   border-radius: 5px;
   border: 2px solid #555;
@@ -36,10 +36,10 @@
 .checkicon,
 .deleteIcon {
   cursor: pointer;
-  color: lightgrey;
-  padding: 0 15px;
-  font: 1.8rem;
-  transition: transform 0.3s;
+  color: rgb(69, 68, 68);
+  padding: 0 22px;
+  font-size: 1.8rem;
+  /* transition: transform 0.3s; */
 }
 
 .checkIcon:hover,
@@ -48,10 +48,10 @@
   transform: scale(1.3);
 }
 
-.checkIcon:hover {
-  color: green;
-}
-
 .deleteIcon:hover {
   color: rgb(218, 13, 13);
+}
+
+.checkIcon:hover {
+  color: green;
 }
