@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import styles from './TodoForm.module.css'
 import Button from '../UI/Button'
+import { useDispatch } from 'react-redux'
+import { addTodoHandler } from '../../store/TodoSlice'
 
-export default function TodoForm({ addTodo, scrollDown }) {
+export default function TodoForm({ scrollDown }) {
   const [text, setText] = useState('')
+  const dispatch = useDispatch()
 
   const addSubmitHandler = (e) => {
     e.preventDefault()
-    addTodo(text)
+    dispatch(addTodoHandler({ text }))
     setText('')
   }
 

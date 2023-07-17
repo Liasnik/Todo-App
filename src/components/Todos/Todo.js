@@ -2,23 +2,24 @@
 import { RiTodoFill, RiDeleteBin2Line } from 'react-icons/ri'
 import { FaCheck } from 'react-icons/fa'
 import styles from './Todo.module.css'
+import { useDispatch } from 'react-redux'
+import { deleteTodo, doneToggleHandler } from '../../store/TodoSlice'
 
-function Todo({ todo, deleteTodo, doneHendler }) {
+function Todo({ id, text, completed }) {
+  const dispatch = useDispatch()
+
   return (
-    <div
-      className={`${styles.todo} ${todo.done ? styles.completedTodo : ''}`}
-      onDoubleClick={() => deleteTodo(todo.id)}
-    >
+    <div className={`${styles.todo} ${completed ? styles.completedTodo : ''}`}>
       <RiTodoFill className={styles.todoIcon} />
-      <div className={styles.todoText}>{todo.text}</div>
+      <div className={styles.todoText}>{text}</div>
       <RiDeleteBin2Line
         className={styles.deleteIcon}
-        onClick={() => deleteTodo(todo.id)}
+        onClick={() => dispatch(deleteTodo({ id }))}
       />
       <FaCheck
         className={styles.checkIcon}
-        style={todo.done ? { color: 'green' } : ''}
-        onClick={() => doneHendler(todo.id)}
+        style={completed ? { color: 'green' } : ''}
+        onClick={() => dispatch(doneToggleHandler({ id }))}
       />
     </div>
   )

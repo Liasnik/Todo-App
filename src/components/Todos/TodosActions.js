@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { RiDeleteBin2Line, RiRefreshLine } from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
 import Button from '../UI/Button'
 import styles from './TodosActions.modules.css'
+import { clearCompleted, resetTodos } from '../../store/TodoSlice'
 
-function TodosActions({ resetTodos, clearCompleted, todos, countDone }) {
+function TodosActions({ countDone }) {
   const [isResetHovered, setIsResetHovered] = useState(false)
   const [isClearHovered, setIsClearHovered] = useState(false)
+
+  const dispatch = useDispatch()
 
   const handleMouseEnter = (type) => {
     if (type === 'reset') {
@@ -33,8 +37,6 @@ function TodosActions({ resetTodos, clearCompleted, todos, countDone }) {
     transition: 'color 0.3s ease',
   }
 
-  //   const findDone = todos.find((todo) => todo.done === true)
-
   const styleDisable = !countDone
     ? { backgroundColor: 'lightgrey', cursor: 'default' }
     : {}
@@ -43,17 +45,16 @@ function TodosActions({ resetTodos, clearCompleted, todos, countDone }) {
     <div className={styles.todosActionsContainer}>
       <Button
         title="Reset Todos"
-        onClick={resetTodos}
+        onClick={() => dispatch(resetTodos())}
         onMouseEnter={() => handleMouseEnter('reset')}
         onMouseLeave={() => handleMouseLeave('reset')}
       >
         <RiRefreshLine style={resetStyle} />
       </Button>
       <Button
-        // disabled={!findDone}
         disabled={!countDone}
         title="Clear Completed Todos"
-        onClick={clearCompleted}
+        onClick={() => dispatch(clearCompleted())}
         style={styleDisable}
         onMouseEnter={() => handleMouseEnter('clear')}
         onMouseLeave={() => handleMouseLeave('clear')}

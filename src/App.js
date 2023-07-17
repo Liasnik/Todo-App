@@ -1,51 +1,16 @@
-import { useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
-import { v4 as uuidv4 } from 'uuid'
+import { useRef } from 'react'
+// import { flushSync } from 'react-dom'
 import './App.css'
 import TodoForm from './components/Todos/TodoForm'
 import TodoList from './components/Todos/TodoList'
 import TodosActions from './components/Todos/TodosActions'
-
-function storageTodo() {
-  const savedTodos = localStorage.getItem('todos3')
-  if (savedTodos) {
-    return JSON.parse(savedTodos)
-  }
-  return []
-}
+import { useSelector } from 'react-redux'
 
 export default function App() {
-  const [todos, setTodos] = useState(storageTodo())
+  const todos = useSelector((state) => state.todos.todos)
   const downRef = useRef(null)
 
   localStorage.setItem('todos3', JSON.stringify(todos))
-
-  const addTodoHandler = (text) => {
-    const newTodo = {
-      id: uuidv4(),
-      text: text,
-      done: false,
-    }
-    flushSync(() => setTodos([...todos, newTodo]))
-  }
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
-  }
-
-  const doneToggleHendler = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : { ...todo }
-      )
-    )
-  }
-
-  const resetTodos = () => setTodos([])
-
-  const clearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.done))
-  }
 
   const scrollDown = () => {
     downRef.current.scrollIntoView({
@@ -54,30 +19,25 @@ export default function App() {
     })
   }
 
-  const countDone = todos.filter((todo) => todo.done === true).length
+  const countDone = todos.filter((todo) => todo.completed === true).length
+
   return (
     <div className="App">
       <h1>todo list </h1>
       <div className="header">
-        <TodoForm addTodo={addTodoHandler} scrollDown={scrollDown} />
+        <TodoForm scrollDown={scrollDown} />
         {!!countDone && (
           <h3>
-            Completed {countDone} {countDone > 1 ? 'todos' : 'todo'}
+            Completed {countDone}/{todos.length}{' '}
+            {countDone > 1 ? 'todos' : 'todo'}
           </h3>
         )}
       </div>
       <div className="body">
-        <TodoList
-          todos={todos}
-          deleteTodo={deleteTodo}
-          doneHendler={doneToggleHendler}
-        />
+        <TodoList />
         <div ref={downRef}>
           {!!todos.length && (
             <TodosActions
-              resetTodos={resetTodos}
-              clearCompleted={clearCompleted}
-              todos={todos}
               countDone={!!countDone} // convert to boolean
             />
           )}
