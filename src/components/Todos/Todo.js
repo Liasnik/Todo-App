@@ -5,7 +5,7 @@ import styles from './Todo.module.css'
 import { useDispatch } from 'react-redux'
 import { deleteTodo, doneToggleHandler } from '../../store/TodoSlice'
 
-function Todo({ id, todo, text, completed }) {
+function Todo({ id, todo, text, completed, listName }) {
   const dispatch = useDispatch()
 
   return (
@@ -14,18 +14,18 @@ function Todo({ id, todo, text, completed }) {
         <FaCheck
           className={styles.checkIcon}
           style={completed ? { color: 'green' } : ''}
-          onClick={() => dispatch(doneToggleHandler({ id }))}
+          onClick={() => dispatch(doneToggleHandler({ id, listName }))}
         />
       ) : (
         <RiTodoFill
           className={styles.todoIcon}
-          onClick={() => dispatch(doneToggleHandler({ id }))}
+          onClick={() => dispatch(doneToggleHandler({ id, listName }))}
         />
       )}
       <div className={styles.todoText}>{text}</div>
       <RiDeleteBin2Line
         className={styles.deleteIcon}
-        onClick={() => dispatch(deleteTodo({ id }))}
+        onClick={() => dispatch(deleteTodo({ id, listName }))}
       />
     </div>
   )

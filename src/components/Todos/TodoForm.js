@@ -4,21 +4,29 @@ import Button from '../UI/Button'
 import { useDispatch } from 'react-redux'
 import { addTodoHandler } from '../../store/TodoSlice'
 
-export default function TodoForm({ scrollDown }) {
+export default function TodoForm({ scrollDown, listName }) {
   const [text, setText] = useState('')
   const refInput = useRef(null)
   const dispatch = useDispatch()
 
-  const addSubmitHandler = (e) => {
-    e.preventDefault()
-    dispatch(addTodoHandler({ text }))
-    setText('')
-    refInput.current.focus()
-  }
+  // const addSubmitHandler = (e, text) => {
+  //   e.preventDefault()
+  //   dispatch(addTodoHandler({ text, listName }))
+  //   setText('')
+  //   refInput.current.focus()
+  // }
 
   return (
     <div className={styles.todoFormContainer}>
-      <form onSubmit={addSubmitHandler}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          dispatch(addTodoHandler({ text, listName }))
+          console.log(text)
+          setText('')
+          refInput.current.focus()
+        }}
+      >
         <input
           ref={refInput}
           placeholder="Enter new todo"

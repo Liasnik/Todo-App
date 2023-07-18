@@ -5,7 +5,7 @@ import Button from '../UI/Button'
 import styles from './TodosActions.modules.css'
 import { clearCompleted, resetTodos } from '../../store/TodoSlice'
 
-function TodosActions({ countDone }) {
+function TodosActions({ countDone, listName }) {
   const [isResetHovered, setIsResetHovered] = useState(false)
   const [isClearHovered, setIsClearHovered] = useState(false)
 
@@ -45,7 +45,7 @@ function TodosActions({ countDone }) {
     <div className={styles.todosActionsContainer}>
       <Button
         title="Reset Todos"
-        onClick={() => dispatch(resetTodos())}
+        onClick={() => dispatch(resetTodos({ listName }))}
         onMouseEnter={() => handleMouseEnter('reset')}
         onMouseLeave={() => handleMouseLeave('reset')}
       >
@@ -54,7 +54,7 @@ function TodosActions({ countDone }) {
       <Button
         disabled={!countDone}
         title="Clear Completed Todos"
-        onClick={() => dispatch(clearCompleted())}
+        onClick={() => dispatch(clearCompleted({ listName }))}
         style={styleDisable}
         onMouseEnter={() => handleMouseEnter('clear')}
         onMouseLeave={() => handleMouseLeave('clear')}

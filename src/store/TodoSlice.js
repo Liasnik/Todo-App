@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
 
-function storageTodo() {
-  const savedTodos = localStorage.getItem('todos3')
+function storageTodo(name) {
+  const savedTodos = localStorage.getItem(name)
   if (savedTodos) {
     return JSON.parse(savedTodos)
   }
@@ -12,28 +12,35 @@ function storageTodo() {
 const TodoSlice = createSlice({
   name: 'todos',
   initialState: {
-    todos: storageTodo(),
+    todoList1: storageTodo('todoList1'),
+    todoList2: storageTodo('todoList2'),
+    todoList3: storageTodo('todoList3'),
   },
   reducers: {
     addTodoHandler(state, action) {
-      state.todos.push({
+      const { text, listName } = action.payload
+      state[listName].push({
         id: uuidv4(),
-        text: action.payload.text,
+        text,
         completed: false,
       })
     },
     deleteTodo(state, action) {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload.id)
+      const { id, listName } = action.payload
+      state[listName] = state[listName].filter((todo) => todo.id !== id)
     },
     doneToggleHandler(state, action) {
-      const todoFind = state.todos.find((todo) => todo.id === action.payload.id)
+      const { id, listName } = action.payload
+      const todoFind = state[listName].find((todo) => todo.id === id)
       todoFind.completed = !todoFind.completed
     },
-    clearCompleted(state) {
-      state.todos = state.todos.filter((todo) => !todo.completed)
+    clearCompleted(state, action) {
+      const { listName } = action.payload
+      state[listName] = state[listName].filter((todo) => !todo.completed)
     },
-    resetTodos(state) {
-      state.todos = []
+    resetTodos(state, action) {
+      const { listName } = action.payload
+      state[listName] = []
     },
   },
 })

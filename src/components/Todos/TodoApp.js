@@ -1,15 +1,14 @@
 import { useRef } from 'react'
-// import { flushSync } from 'react-dom'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
 import TodosActions from './TodosActions'
 import { useSelector } from 'react-redux'
 
-export default function TodoApp({ name }) {
-  const todos = useSelector((state) => state.todos.todos)
+export default function TodoApp({ name, listName }) {
+  const todos = useSelector((state) => state.todos[listName])
   const downRef = useRef(null)
 
-  localStorage.setItem('todos3', JSON.stringify(todos))
+  localStorage.setItem(listName, JSON.stringify(todos))
 
   const scrollDown = () => {
     downRef.current.scrollIntoView({
@@ -24,7 +23,7 @@ export default function TodoApp({ name }) {
     <div>
       <h1>{name}</h1>
       <div className="header">
-        <TodoForm scrollDown={scrollDown} />
+        <TodoForm scrollDown={scrollDown} listName={listName} />
         {!!countDone && (
           <h3>
             Completed {countDone}/{todos.length}{' '}
@@ -33,11 +32,12 @@ export default function TodoApp({ name }) {
         )}
       </div>
       <div className="body">
-        <TodoList />
+        <TodoList listName={listName} />
         <div ref={downRef}>
           {!!todos.length && (
             <TodosActions
               countDone={!!countDone} // convert to boolean
+              listName={listName}
             />
           )}
         </div>
