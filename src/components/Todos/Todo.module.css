@@ -1,7 +1,7 @@
 .todo {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 14px;
   margin: 15px 7px;
   font-size: 1.5rem;
   border-radius: 5px;
@@ -13,12 +13,14 @@
 .todoText {
   width: 100%;
   text-align: left;
+  overflow: hidden;
 }
 
 .todoIcon {
   font-size: 1.8rem;
   margin-right: 10px;
   color: teal;
+  transition: transform 0.3s;
 }
 
 .completedTodo {
@@ -33,19 +35,24 @@
   color: gray;
 }
 
-.checkicon,
 .deleteIcon {
-  cursor: pointer;
   color: rgb(69, 68, 68);
-  padding: 0 22px;
+  margin-left: 12px;
+  padding-left: 10px;
   font-size: 1.8rem;
-  /* transition: transform 0.3s; */
+  transition: transform 0.3s;
 }
 
+.checkIcon {
+  margin-right: 14px;
+  transition: transform 0.3s;
+}
+
+.todoIcon:hover,
 .checkIcon:hover,
 .deleteIcon:hover {
   cursor: pointer;
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
 .deleteIcon:hover {
