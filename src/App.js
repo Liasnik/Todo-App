@@ -9,7 +9,7 @@ export default function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          <Route path="/Todo-App" element={<MainLayout />}>
             <Route
               index
               element={<TodoApp name="todo list 1" listName="todoList1" />}
