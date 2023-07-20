@@ -46,8 +46,29 @@ a:hover {
 }
 
 nav {
+  text-align: left;
   padding: 10px;
-  background-color: rgb(64, 125, 125);
+  background-color: rgb(48, 104, 104);
   position: sticky;
   top: 0;
+}
+
+.input {
+  padding: 2px;
+  outline-style: none;
+}
+
+.button {
+  padding: 2px;
+}
+
+.buttonMenu {
+  padding: 0 3px;
+  cursor: pointer;
+  font-size: medium;
+  border: none;
+}
+.buttonMenu:hover {
+  color: red;
+  transform: scale(1.3);
 }

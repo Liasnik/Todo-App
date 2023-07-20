@@ -4,8 +4,18 @@ import TodoList from './TodoList'
 import TodosActions from './TodosActions'
 import { useSelector } from 'react-redux'
 
+function storageTodo(name) {
+  const savedTodos = localStorage.getItem(name)
+  if (savedTodos) {
+    return JSON.parse(savedTodos)
+  }
+  return []
+}
+
 export default function TodoApp({ name, listName }) {
-  const todos = useSelector((state) => state.todos[listName] ?? [])
+  const todos = useSelector(
+    (state) => state.todos[listName] ?? storageTodo(listName) ?? []
+  )
   const downRef = useRef(null)
 
   localStorage.setItem(listName, JSON.stringify(todos))
@@ -32,7 +42,7 @@ export default function TodoApp({ name, listName }) {
         )}
       </div>
       <div className="body">
-        <TodoList listName={listName} />
+        <TodoList listName={listName} todos={todos} />
         <div ref={downRef}>
           {!!todos.length && (
             <TodosActions

@@ -15,21 +15,22 @@ const TodoSlice = createSlice({
     todoList1: storageTodo('todoList1'),
     todoList2: storageTodo('todoList2'),
     todoList3: storageTodo('todoList3'),
-    todoList4: storageTodo('todoList4'),
   },
   reducers: {
     addState(state, action) {
       const { listName } = action.payload
 
       if (!state[listName]) {
-        state[`todoList${listName + 3}`] = storageTodo(
-          `todoList${listName + 3}`
-        )
+        state[listName] = storageTodo(listName)
       }
     },
 
     addTodoHandler(state, action) {
       const { text, listName } = action.payload
+
+      if (!state[listName]) {
+        state[listName] = storageTodo(listName)
+      }
 
       // if (!state[listName]) {
       //   state[listName] = []
