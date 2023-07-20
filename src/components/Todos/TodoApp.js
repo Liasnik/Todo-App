@@ -5,7 +5,7 @@ import TodosActions from './TodosActions'
 import { useSelector } from 'react-redux'
 
 export default function TodoApp({ name, listName }) {
-  const todos = useSelector((state) => state.todos[listName])
+  const todos = useSelector((state) => state.todos[listName] ?? [])
   const downRef = useRef(null)
 
   localStorage.setItem(listName, JSON.stringify(todos))

@@ -3,7 +3,7 @@ import Todo from './Todo'
 import styles from './TodoList.module.css'
 
 export default function TodoList({ listName }) {
-  const todos = useSelector((state) => state.todos[listName])
+  const todos = useSelector((state) => state.todos[listName] ?? [])
 
   return (
     <div className={styles.todoListContainer}>
