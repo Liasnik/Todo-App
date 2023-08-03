@@ -4,6 +4,9 @@ import TodoApp from './components/Todos/TodoApp'
 import NotFound from './components/NotFound'
 import MainLayout from './layouts/MainLayout'
 import { useState } from 'react'
+import CountdownTimer from './components/CountdownTimer/CountdownTimer'
+import Date from './components/Date/NowDate'
+import AddListForm from './components/ListAddForm/AddListForm'
 
 const loudLists = () => {
   const savedLists = localStorage.getItem('todoLists')
@@ -19,9 +22,6 @@ export default function App() {
 
   localStorage.setItem('todoLists', JSON.stringify(todoLists))
 
-  console.log(text)
-  console.log(todoLists)
-
   const handleText = (e) => {
     setText(e.target.value)
   }
@@ -30,11 +30,6 @@ export default function App() {
     setTodoLists([...todoLists, text])
     setText('')
   }
-
-  // const handleAddList = () => {
-  //   // const newListName = `todosList${todoLists.length + 1}`
-  //   setTodoLists([...todoLists, todoLists.length + 1])
-  // }
 
   const handleDeleteList = (listName) => {
     // Создаём копию списка всех списков дел
@@ -48,22 +43,21 @@ export default function App() {
       updatedTodoLists.splice(index, 1)
       setTodoLists(updatedTodoLists)
     }
-
-    localStorage.removeItem(listName)
+    // localStorage.removeItem(listName)
   }
 
   return (
     <BrowserRouter>
       <div className="App">
-        <input
-          className="input"
-          type="text"
-          value={text}
-          onChange={handleText}
-        />
-        <button className="button" onClick={handleAddList}>
-          Add List
-        </button>
+        <div className="container">
+          <Date />
+          <AddListForm
+            text={text}
+            handleText={handleText}
+            handleAddList={handleAddList}
+          />
+        </div>
+        <CountdownTimer />
         <Routes>
           <Route
             path="/Todo-App"

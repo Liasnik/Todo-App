@@ -22,7 +22,6 @@ export default function TodoForm({ scrollDown, listName }) {
         onSubmit={(e) => {
           e.preventDefault()
           dispatch(addTodoHandler({ text, listName }))
-          console.log(text)
           setText('')
           refInput.current.focus()
         }}

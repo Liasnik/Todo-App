@@ -16,8 +16,9 @@ export default function Menu({ todoLists, handleAddList, handleDeleteList }) {
           key={listName}
           style={{
             backgroundColor: 'rgb(48, 104, 104)',
-            margin: '3px',
+            margin: '2px',
             padding: '2px',
+            overflow: 'auto',
           }}
         >
           <NavLink
@@ -26,6 +27,7 @@ export default function Menu({ todoLists, handleAddList, handleDeleteList }) {
           >
             {listName}
           </NavLink>
+
           <button
             className="buttonMenu"
             onClick={() => {
