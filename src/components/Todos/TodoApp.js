@@ -42,7 +42,7 @@ export default function TodoApp({ name, listName }) {
         )}
       </div>
       <div className="body">
-        <TodoList listName={listName} todos={todos} />
+        <TodoList listName={listName.toString()} todos={todos} />
         <div ref={downRef}>
           {!!todos.length && (
             <TodosActions
